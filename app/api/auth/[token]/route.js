@@ -2,12 +2,13 @@
 const User = require("@models/User.js");
 const { connectToDb } = require("@utils/database");
 var jwt = require('jsonwebtoken');
+var SECRET_KEY="blogpostnextapp";
 
 export const GET = async(req,{params})=>{
 try {
      await connectToDb()
     const token = params.token;
-    const decoded = jwt.verify(token, process.env.SECRET_KEY)
+    const decoded = jwt.verify(token,SECRET_KEY)
     // console.log(decoded)
     const uid = decoded?.uid;
     const user = await User.findOne({_id:uid})
